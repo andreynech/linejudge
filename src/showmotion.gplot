@@ -1,0 +1,5 @@
+#!/usr/bin/gnuplot
+
+splot 'motion.dat' with lines
+pause -1 "Hit return in terminal window to quit"
+
