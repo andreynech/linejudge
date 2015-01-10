@@ -10,6 +10,7 @@ import cv2
 # be used, i.e. 0 is /dev/video0, 1 is /dev/video1, etc.
 
 if len(sys.argv) == 2:
+    f = sys.argv[1]
     if f[:-1] == '/dev/video':
         # use camera for capture
         video_file = int(f[10:])
@@ -41,8 +42,6 @@ while(ret and cap.isOpened()):
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-
-cv2.waitKey(0)
 
 cap.release()
 
