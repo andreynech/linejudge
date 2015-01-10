@@ -93,9 +93,9 @@ else:
     video_file = '../data/video/fuerte/front1.mkv'
 
 cap = cv2.VideoCapture(video_file)
+#fgbg = cv2.BackgroundSubtractorMOG()
 #fgbg = cv2.BackgroundSubtractorMOG2()
-fgbg = cv2.BackgroundSubtractorMOG()
-
+fgbg = cv2.BackgroundSubtractorMOG2(bShadowDetection=False, history=200, varThreshold=16)
 ret = True
 stop_frame = False
 cv2.namedWindow('frame', cv2.CV_WINDOW_AUTOSIZE)

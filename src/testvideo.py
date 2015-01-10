@@ -24,7 +24,7 @@ else:
     video_file = 0
 
 cap = cv2.VideoCapture(video_file)
-
+print('Start capturing. Press q to quit')
 ret = True
 while(ret and cap.isOpened()):
     ret, frame = cap.read()
@@ -37,6 +37,9 @@ while(ret and cap.isOpened()):
         # Draw red dot in top right corner to test how frames are
         # accessible as numpy arrays
         frame[10][10] = (0, 0, 255) # OpenCV uses BGR
+        frame[10][11] = (0, 0, 255)
+        frame[11][10] = (0, 0, 255)
+        frame[11][11] = (0, 0, 255)
         
         cv2.imshow('frame', frame)
 
