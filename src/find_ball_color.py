@@ -114,8 +114,9 @@ while(ret and cap.isOpened()):
         fgmask = fgbg.apply(frame)
 
         # Remove noise from backgound mask (low pass filter)
-        kernel = np.ones((7,7), np.float32) / 49
-        fgmask = cv2.filter2D(fgmask, -1, kernel)
+        #kernel = np.ones((7,7), np.float32) / 49
+        #fgmask = cv2.filter2D(fgmask, -1, kernel)
+        fgmask = cv2.medianBlur(fgmask, 7)
         fgmask = cv2.inRange(fgmask, 200, 255)
         fg_frame = cv2.bitwise_and(frame, frame, mask=fgmask)
 
