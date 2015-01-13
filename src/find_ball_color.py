@@ -112,6 +112,11 @@ while(ret and cap.isOpened()):
         #frame[10][10] = (0, 0, 255) # BGR - draw red dot in top right corner
 
         fgmask = fgbg.apply(frame)
+
+        # Remove noise from backgound mask (low pass filter)
+        kernel = np.ones((5,5), np.float32) / 25
+        fgmask = cv2.filter2D(fgmask, -1, kernel)
+        fgmask = cv2.inRange(fgmask, 200, 255)
         fg_frame = cv2.bitwise_and(frame, frame, mask=fgmask)
 
         (h, w, ch) = frame.shape
