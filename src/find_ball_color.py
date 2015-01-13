@@ -28,7 +28,7 @@ hsv = None
 #hsv_avg = np.array([range_map(44, 0, 360, 0, 180), range_map(35, 0, 100, 0, 255), range_map(63, 0, 100, 0, 255)], np.uint8)
 hsv_avg = np.array([18, 90, 168], np.uint8)
 print('Default average:', hsv_avg)
-color_distance = 1.0 - 0.30
+color_distance = 1.0 - 0.50
 
 
 def mouseLeftDown(x, y, flags, param):
@@ -101,7 +101,7 @@ stop_frame = False
 cv2.namedWindow('frame', cv2.CV_WINDOW_AUTOSIZE)
 cv2.setMouseCallback('frame', mouse_callback)
 
-cv2.createTrackbar('Distance','frame', 30, 100, new_distance)
+cv2.createTrackbar('Distance','frame', int((1.0 - color_distance) * 100), 100, new_distance)
 
 while(ret and cap.isOpened()):
 
