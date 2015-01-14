@@ -21,3 +21,6 @@ camera_objective_r = [18 / 2, 16 / 2];
 camera_objective_l = 10;
 camera_top_dim = [10, 70, 30];
 camera_mic_grid_dim = [10, 50, 10];
+
+box_wall = 2;
+box_dim = [arduino_board_dim[0] + camera_top_dim[1] + 20, arduino_board_dim[1] + 50, 60];
