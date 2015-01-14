@@ -1,7 +1,7 @@
 tolerance = 0.2;
 
 arduino_board_dim = [116 + 6.3, 65.7 + 6.3, 10];
-
+arduino_board_mounting_holes_h = 3;
 arduino_board_mounting_holes_r = 3 / 2 + tolerance;
 arduino_board_mounting_holes_pos = [
     [0 + 6.3, 0 + 6.3],
