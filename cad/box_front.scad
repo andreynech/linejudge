@@ -14,4 +14,8 @@ module box_front()
     }
 }
 
-box_front();
+
+if(ASSEMBLY == undef || ASSEMBLY == 0)
+{
+    box_front();
+}

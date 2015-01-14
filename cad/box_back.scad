@@ -15,4 +15,7 @@ module box_back()
 }
 
 
-box_back();
+if(ASSEMBLY == undef || ASSEMBLY == 0)
+{
+    box_back();
+}

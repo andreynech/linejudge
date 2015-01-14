@@ -12,16 +12,17 @@ arduino_board_mounting_holes_pos = [
     [100.3 + 6.3, 5.6 + 6.3]
 ];
 
-camera_base_r = 50 / 2;
-camera_base_h = 3;
-camera_base_cut = 15;
-camera_foot_r = 15 / 2;
+camera_base_r = 52 / 2 + tolerance;
+camera_base_h = 6.1 + tolerance;
+camera_base_cut = 52 - 41.3;
+camera_foot_r = 18 / 2 + tolerance;
 camera_foot_h = 3;
-camera_sphere_r = 30 / 2;
-camera_objective_r = [18 / 2 + tolerance, 16 / 2];
-camera_objective_l = 10;
-camera_top_dim = [10, 70, 30];
-camera_mic_grid_dim = [10, 50, 10];
+camera_sphere_r = 38 / 2;
+camera_objective_r = [22 / 2 + tolerance, 21 / 2 + tolerance];
+camera_objective_l = 17;
+camera_top_dim = [14, 84, 35];
+camera_mic_grid_dim = [11, 80.7, 18.7];
 
 box_wall = 2;
-box_dim = [arduino_board_dim[0] + camera_top_dim[1] + 20, arduino_board_dim[1] + 50, 60];
+box_edge_r = 3;
+box_dim = [arduino_board_dim[0] + camera_top_dim[1] + 20, arduino_board_dim[1] + 50, 50];

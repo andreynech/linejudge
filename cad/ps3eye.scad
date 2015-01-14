@@ -7,7 +7,7 @@ module cut_cube()
     cut_cube_xdim = 30;
     
     translate([-camera_top_dim[2] / 2 - cut_cube_xdim, 0, -camera_top_dim[0] / 2 - 1])
-    rotate([0, 0, -15])
+    rotate([0, 0, -5])
     cube([cut_cube_xdim, camera_top_dim[1] * 2, camera_top_dim[0] + 2]);
 }
 
@@ -42,14 +42,14 @@ module ps3eye()
         h = camera_objective_l + 5, $fn = 128);
 
     // Top boxed part
-    translate([0, 0, camera_base_h + camera_foot_h + 2 * camera_sphere_r])
+    translate([0, 0, camera_base_h + camera_foot_h + 2 * camera_sphere_r + 3])
     rotate([0, -90, 0])
     {
         difference()
         {
             roundedBox([camera_top_dim[2],
                     camera_top_dim[1],
-                    camera_top_dim[0]], 5, true);
+                    camera_top_dim[0]], 5, true, $fn = 64);
             
             cut_cube();
             mirror([0, 1, 0])
@@ -58,31 +58,34 @@ module ps3eye()
     }
 
     // Microphone grid
-    translate([5,
+    translate([camera_top_dim[2] / 2 - 4 * 2,
             0,
             camera_base_h
             + camera_foot_h
             + 2 * camera_sphere_r
             + camera_top_dim[2] / 2
-            - camera_mic_grid_dim[2] / 2 - 1
+            - camera_mic_grid_dim[2] / 2 + 3 - 1
         ])
     color("DarkGray")
     rotate([0, 90, 0])
     roundedBox([camera_mic_grid_dim[2],
             camera_mic_grid_dim[1],
-            camera_mic_grid_dim[0]], 3, $fn = 32);
+            camera_mic_grid_dim[0] + 4], 4, $fn = 32);
 
     // Status LEDs
-    translate([camera_top_dim[0] / 2, -15, 30])
+    translate([camera_top_dim[0] / 2, -22, 42])
     color("Red")
-    sphere(r = 1, $fn=16);
+    sphere(r = 1.5, $fn=16);
     mirror([0, 1, 0])
     {
-        translate([camera_top_dim[0] / 2, -15, 30])
+        translate([camera_top_dim[0] / 2, -22, 42])
         color("Blue")
-        sphere(r = 1, $fn=16);
+        sphere(r = 1.5, $fn=16);
     }
 }
 
 
-ps3eye();
+if(ASSEMBLY == undef || ASSEMBLY == 0)
+{
+    ps3eye();
+}
