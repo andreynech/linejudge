@@ -1,7 +1,8 @@
+tolerance = 0.2;
 
 arduino_board_dim = [116 + 6.3, 65.7 + 6.3, 10];
 
-arduino_board_mounting_holes_r = 3 / 2;
+arduino_board_mounting_holes_r = 3 / 2 + tolerance;
 arduino_board_mounting_holes_pos = [
     [0 + 6.3, 0 + 6.3],
     [0 + 6.3, 52.8 + 6.3],
@@ -17,7 +18,7 @@ camera_base_cut = 15;
 camera_foot_r = 15 / 2;
 camera_foot_h = 3;
 camera_sphere_r = 30 / 2;
-camera_objective_r = [18 / 2, 16 / 2];
+camera_objective_r = [18 / 2 + tolerance, 16 / 2];
 camera_objective_l = 10;
 camera_top_dim = [10, 70, 30];
 camera_mic_grid_dim = [10, 50, 10];
