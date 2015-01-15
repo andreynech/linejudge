@@ -18,4 +18,7 @@ module box_front()
 if(ASSEMBLY == undef || ASSEMBLY == 0)
 {
     box_front();
+    
+    translate([0, 0, 100])
+    %cube([200, 200, 200], center = true);
 }

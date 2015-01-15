@@ -25,4 +25,4 @@ camera_mic_grid_dim = [11, 80.7, 18.7];
 
 box_wall = 2;
 box_edge_r = 3;
-box_dim = [arduino_board_dim[0] + camera_top_dim[1] + 20, arduino_board_dim[1] + 50, 50];
+box_dim = [arduino_board_dim[1] + camera_top_dim[1] + 20, arduino_board_dim[0] + 50, 50];

@@ -61,8 +61,8 @@ module assembly_stands(make_hole)
 
 module box()
 {
-    vent_w = 2;
-    n_vent_w = 5;
+    vent_w = 3;
+    n_vent_w = 7;
 
     difference()
     {
@@ -84,16 +84,21 @@ module box()
                 // Ventilation back side
                 for(x = [-n_vent_w * (vent_w + 2 * vent_w) : vent_w + 2 * vent_w : n_vent_w * (vent_w + 2 * vent_w)])
                 {
-                    translate([x, 0, box_dim[2] / 2 - box_wall / 2])
-                    roundedBox([vent_w, box_dim[1] / 2, 2 * box_wall], 1, 0, $fn = 16);
+                    translate([x, 50, box_dim[2] / 2 - box_wall / 2])
+                    roundedBox([vent_w, box_dim[1] / 6, 2 * box_wall], 1, 0, $fn = 16);
+                    
+                    translate([x, -50, box_dim[2] / 2 - box_wall / 2])
+                    roundedBox([vent_w, box_dim[1] / 6, 2 * box_wall], 1, 0, $fn = 16);
                 }
         
             }
 
             // Board stands
             translate([-box_dim[0] / 2 + box_wall + 5,
-                    (box_dim[1] / 2 - box_wall) - arduino_board_dim[1] - 5,
-                    -box_dim[2] / 2 + box_wall - 0.1])
+                    box_dim[1] / 2 - box_wall - 5,
+                    -box_dim[2] / 2 + box_wall - 0.1
+                ])
+            rotate([0, 0, -90])
             board_stands(false);
 
             // Stands for box assembly
@@ -103,7 +108,7 @@ module box()
             translate([
                     -box_dim[0] / 2
                     + box_wall
-                    + arduino_board_dim[0]
+                    + arduino_board_dim[1]
                     + camera_top_dim[1] / 2
                     + 10,
                     -20 + camera_base_h / 2,
@@ -123,7 +128,7 @@ module box()
 
         translate([-box_dim[0] / 2
                 + box_wall
-                + arduino_board_dim[0]
+                + arduino_board_dim[1]
                 + camera_top_dim[1] / 2
                 + 10,
                 -20,
@@ -134,8 +139,10 @@ module box()
 
         // Board mounting holes through stands and cover
         translate([-box_dim[0] / 2 + box_wall + 5,
-                (box_dim[1] / 2 - box_wall) - arduino_board_dim[1] - 5,
-                -box_dim[2] / 1.5])
+                box_dim[1] / 2 - box_wall - 5,
+                -box_dim[2] / 2 - 10
+            ])
+        rotate([0, 0, -90])
         board_stands(true);
         
         // Stands for box assembly holes
