@@ -1,6 +1,7 @@
 include <dimensions.scad>
 use <MCAD/boxes.scad>
 use <ps3eye.scad>
+use <led.scad>
 
 
 module board_stands(make_hole)
@@ -81,6 +82,7 @@ module box()
                         box_dim[1] * 2,
                         box_dim[2] / 8],
                     2, $fn = 16);
+                
                 // Ventilation back side
                 for(x = [-n_vent_w * (vent_w + 2 * vent_w) : vent_w + 2 * vent_w : n_vent_w * (vent_w + 2 * vent_w)])
                 {
@@ -90,7 +92,6 @@ module box()
                     translate([x, -50, box_dim[2] / 2 - box_wall / 2])
                     roundedBox([vent_w, box_dim[1] / 6, 2 * box_wall], 1, 0, $fn = 16);
                 }
-        
             }
 
             // Board stands
@@ -147,6 +148,11 @@ module box()
         
         // Stands for box assembly holes
         assembly_stands(true);
+
+        // LED
+        translate([box_dim[0] / 2 - 30, -30, -box_dim[2] / 2 + box_wall])
+        rotate([180, 0, 0])
+        led();
     }
     
 }

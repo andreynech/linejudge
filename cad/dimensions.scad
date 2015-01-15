@@ -26,3 +26,12 @@ camera_mic_grid_dim = [11, 80.7, 18.7];
 box_wall = 2;
 box_edge_r = 3;
 box_dim = [arduino_board_dim[1] + camera_top_dim[1] + 20, arduino_board_dim[0] + 50, 50];
+
+// LED
+led_d = 5 + tolerance / 2; //LED Diameter
+led_h = 8.6; //LED Height
+led_fh = 1; //LED FLange Thickness
+led_fd = 6 + tolerance / 2; //LED Flange Diameter
+wire_d = 0.6 + tolerance / 2; //Wire Diameter
+wire_h = 27; //Wire Height
+wire_da = 2.54; // THe distance between the Wires
