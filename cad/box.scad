@@ -149,8 +149,12 @@ module box()
         // Stands for box assembly holes
         assembly_stands(true);
 
-        // LED
-        translate([box_dim[0] / 2 - 30, -30, -box_dim[2] / 2 + box_wall])
+        // LED 1
+        translate([box_dim[0] / 2 - 40, -40, -box_dim[2] / 2 + box_wall + led_fh])
+        rotate([180, 0, 0])
+        led();
+        // LED 2
+        translate([box_dim[0] / 2 - 40 - 20, -40, -box_dim[2] / 2 + box_wall + led_fh])
         rotate([180, 0, 0])
         led();
     }
