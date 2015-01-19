@@ -159,7 +159,7 @@ while(ret and cap.isOpened()):
                                    method=cv.CV_HOUGH_GRADIENT, 
                                    dp=1, minDist=50,#minDist=h / 10, 
                                    # type, 1/scale, min center dists
-                                   param1=500, param2=15, # params1?, param2?
+                                   param1=200, param2=9, # params1?, param2?
                                    minRadius=3, maxRadius=15) # min radius, max radius
 
         if circles is not None and len(circles) > 0:
@@ -203,7 +203,7 @@ while(ret and cap.isOpened()):
         #cv2.imshow('fgmask', fgmask)
         #cv2.imshow('edges', edges)
 
-    key = cv2.waitKey(1)
+    key = cv2.waitKey(0)
     if key == ord('q'):
         break
 #    if stop_frame:
