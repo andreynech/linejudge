@@ -175,6 +175,18 @@ while x0 < trajectory_x[-1]:
     x0 = x1
     y0 = y1
 
+x_cross = trajectory_x[bounce_idx - 1]
+while abs(before_bounce(x_cross) - after_bounce(x_cross)) > 0.01 and x_cross < trajectory_x[bounce_idx]:
+    x_cross += 0.01
+
+cv2.circle(first_frame, 
+           (int(x_cross), int(before_bounce(x_cross))), 
+           3,
+           cv.CV_RGB(255,255,0),
+           2, 
+           cv.CV_AA, 
+           0)
+
 print('Visualizing...')
 first_frame = cv2.pyrDown(first_frame)
 cv2.namedWindow(wnd_caption, cv2.CV_WINDOW_AUTOSIZE)
