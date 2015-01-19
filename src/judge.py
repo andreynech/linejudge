@@ -124,7 +124,7 @@ while(ret and frame_count > 0):
 if cap.isOpened():
     cap.release()
 
-if len(trajectory_x) == 0:
+if len(trajectory_x) < 2:
     print('Ball is not detected')
     sys.exit(2)
     
@@ -132,29 +132,51 @@ if mirror_trajectory == True:
     trajectory_x.reverse()
     trajectory_y.reverse()
     trajectory_r.reverse()
-    
+
+bounce_idx = 0
+
+# Find the trajectory element with minimal y
+val, bounce_idx = max((val, idx) for (idx, val) in enumerate(trajectory_y))
+
 for i in range(0, len(trajectory_x)):
+    if i < bounce_idx:
+        circle_color = cv.CV_RGB(0,0,255)
+    else:
+        circle_color = cv.CV_RGB(255,0,0)
+        
     cv2.circle(first_frame, 
                (trajectory_x[i], trajectory_y[i]), 
-               trajectory_r[i], 
-               cv.CV_RGB(255,0,0), 
+               trajectory_r[i],
+               circle_color,
                2, 
                cv.CV_AA, 
                0)
 
 
-f = UnivariateSpline(trajectory_x, trajectory_y)
+before_bounce = UnivariateSpline(trajectory_x[:bounce_idx], trajectory_y[:bounce_idx])
 x0 = trajectory_x[0]
 x1 = x0
-y0 = trajectory_y[0]
+y0 = before_bounce(x0)
+while x0 < trajectory_x[bounce_idx]:    
+    x1 += 1
+    y1 = before_bounce(x1)
+    cv2.line(first_frame, (x0, y0), (x1, y1), cv.CV_RGB(0,255,0), thickness = 2)
+    x0 = x1
+    y0 = y1
+
+after_bounce = UnivariateSpline(trajectory_x[bounce_idx:], trajectory_y[bounce_idx:])
+x0 = trajectory_x[bounce_idx - 1]
+x1 = x0
+y0 = after_bounce(x0)
 while x0 < trajectory_x[-1]:    
     x1 += 1
-    y1 = f(x1)
+    y1 = after_bounce(x1)
     cv2.line(first_frame, (x0, y0), (x1, y1), cv.CV_RGB(0,255,0), thickness = 2)
     x0 = x1
     y0 = y1
 
 print('Visualizing...')
+first_frame = cv2.pyrDown(first_frame)
 cv2.namedWindow(wnd_caption, cv2.CV_WINDOW_AUTOSIZE)
 cv2.imshow(wnd_caption, first_frame)
 cv2.waitKey(0)
