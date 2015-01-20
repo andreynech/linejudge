@@ -1,11 +1,14 @@
 #! /usr/bin/env python
 
 import sys
+import time
 import math
 import numpy as np
 from scipy.interpolate import UnivariateSpline 
 import cv2
 import cv2.cv as cv
+import mraa
+
 
 # Function to map the value between two ranges
 def range_map(value, leftMin, leftMax, rightMin, rightMax):
@@ -39,6 +42,13 @@ hsv_avg = np.array([range_map(56, 0, 360, 0, 180),
                     range_map(34, 0, 100, 0, 255), 
                     range_map(93, 0, 100, 0, 255)], 
                    np.uint8)
+
+# Setup GPIO pins for LEDs
+led_in = mraa.Gpio(14)
+led_in.dir(mraa.DIR_OUT)
+led_out = mraa.Gpio(15)
+led_out.dir(mraa.DIR_OUT)
+
 
 if len(sys.argv) == 2:
     video_file = sys.argv[1]
@@ -191,26 +201,17 @@ cv2.circle(first_frame,
 
 (rows, cols, _) = first_frame.shape
 
+# Switch corresponding LED
 if x_cross > line_x:
-    cv2.putText(first_frame,
-                'IN',
-                (0, rows - 20),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                5,
-                cv.CV_RGB(0,255,0),
-                thickness = 5)
+    print('IN')
+    led_in.write(1)
+    led_out.write(0)
 else:
-    cv2.putText(first_frame,
-                'OUT',
-                (0, rows - 20),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                5,
-                cv.CV_RGB(255,0,0),
-                thickness = 5)
+    print('OUT')
+    led_in.write(0)
+    led_out.write(1)
 
-print('Visualizing...')
-first_frame = cv2.pyrDown(first_frame)
-cv2.namedWindow(wnd_caption, cv2.CV_WINDOW_AUTOSIZE)
-cv2.imshow(wnd_caption, first_frame)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# Wait 3 seconds and turn all LEDs off
+time.sleep(3)
+led_in.write(0)
+led_out.write(0)
