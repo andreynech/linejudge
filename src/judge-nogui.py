@@ -83,7 +83,9 @@ while(ret and frame_count > 0):
         # Remove noise from backgound mask (low pass filter)
         kernel_size = 7
         fgmask = cv2.medianBlur(fgmask, kernel_size)
-        fgmask = cv2.inRange(fgmask, 210, 255)
+        fgmask = cv2.inRange(fgmask,
+                             np.array((210), np.uint8),
+                             np.array((255), np.uint8))
 
         # Apply foreground mask to cut out static parts
         fg_frame = cv2.bitwise_and(frame, frame, mask=fgmask)

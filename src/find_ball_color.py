@@ -94,6 +94,10 @@ else:
     print('using ../data/video/fuerte/front1.mkv as video_file_name')
     video_file = '../data/video/fuerte/front1.mkv'
 
+fourcc = cv2.cv.CV_FOURCC(*'XVID')
+out = cv2.VideoWriter('output.avi',fourcc, 30.0, (640*2,480*2))
+    
+    
 cap = cv2.VideoCapture(video_file)
 #fgbg = cv2.BackgroundSubtractorMOG()
 #fgbg = cv2.BackgroundSubtractorMOG2()
@@ -197,13 +201,14 @@ while(ret and cap.isOpened()):
 
 
 
+        out.write(frame)
         cv2.imshow('frame', frame)
         #cv2.imshow('mask', mask)
         #cv2.imshow('hough_in', hough_in)
         #cv2.imshow('fgmask', fgmask)
         #cv2.imshow('edges', edges)
 
-    key = cv2.waitKey(0)
+    key = cv2.waitKey(1)
     if key == ord('q'):
         break
 #    if stop_frame:
@@ -217,7 +222,7 @@ while(ret and cap.isOpened()):
 #    elif key == ord('s'):
 #        stop_frame = True
 
-
+out.release()
 cap.release()
 cv2.destroyAllWindows()
 
